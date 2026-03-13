@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -11,13 +11,38 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const pathname = usePathname();
+  const router = useRouter();
 
   const navLinks = [
     { id: 'shop', label: 'Shop', href: '/shop' },
-    { id: 'ventures', label: 'Ventures', href: '#ventures' },
-    { id: 'ethos', label: 'Ethos', href: '#ethos' },
-    { id: 'contact', label: 'Contact', href: '#contact' },
+    { id: 'ventures', label: 'Ventures', href: '/#ventures' },
+    { id: 'ethos', label: 'Ethos', href: '/#ethos' },
+    { id: 'contact', label: 'Contact', href: '/#contact' },
   ];
+
+  const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const isHome = pathname === '/';
+    const sectionId = href.split('#')[1];
+
+    if (isHome) {
+      // On home page, just scroll to section
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Not on home page, navigate home first then scroll
+      router.push('/');
+      // Scroll after navigation completes
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
 
   useEffect(() => {
     // On the dedicated shop page, highlight Shop and skip scroll tracking.
@@ -100,7 +125,7 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
             const isActive = activeSection === link.id;
-            const isInternalRoute = link.href.startsWith('/');
+            const isShopLink = link.href === '/shop';
 
             const className = `text-sm font-medium transition-colors pb-1 border-b-2 ${
               isActive
@@ -108,7 +133,7 @@ export function Navbar() {
                 : 'text-slate-300 border-transparent hover:text-blue-400'
             }`;
 
-            if (isInternalRoute) {
+            if (isShopLink) {
               return (
                 <Link key={link.label} href={link.href} className={className}>
                   {link.label}
@@ -120,6 +145,7 @@ export function Navbar() {
               <motion.a
                 key={link.label}
                 href={link.href}
+                onClick={(e) => handleSectionClick(e, link.href)}
                 whileHover={{ y: -2 }}
                 className={className}
               >
@@ -148,12 +174,12 @@ export function Navbar() {
         >
           {navLinks.map((link) => {
             const isActive = activeSection === link.id;
-            const isInternalRoute = link.href.startsWith('/');
+            const isShopLink = link.href === '/shop';
             const className = `block text-sm font-medium py-2 transition-colors ${
               isActive ? 'text-blue-400' : 'text-slate-300 hover:text-blue-400'
             }`;
 
-            if (isInternalRoute) {
+            if (isShopLink) {
               return (
                 <Link
                   key={link.label}
@@ -170,7 +196,10 @@ export function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => {
+                  handleSectionClick(e, link.href);
+                  setIsOpen(false);
+                }}
                 className={className}
               >
                 {link.label}

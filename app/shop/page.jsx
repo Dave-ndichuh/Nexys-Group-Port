@@ -1,6 +1,6 @@
-import { Shop } from '@/components/Shop';
+import { ProductCatalog } from '@/components/ProductCatalog';
 
 export default function ShopPage() {
-  return <Shop />;
+  return <ProductCatalog />;
 }
 

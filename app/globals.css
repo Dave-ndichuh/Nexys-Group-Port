@@ -1,0 +1,204 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Background: Deep charcoal base from emblem's dark aesthetic */
+  --background: oklch(0.056 0 0);
+  --foreground: oklch(0.975 0 0);
+  
+  /* Card: Slightly lighter than background, with steel tint */
+  --card: oklch(0.1 0.01 60);
+  --card-foreground: oklch(0.975 0 0);
+  
+  /* Popover */
+  --popover: oklch(0.1 0.01 60);
+  --popover-foreground: oklch(0.975 0 0);
+  
+  /* Primary: Sophisticated blue from illuminated circuit (not neon) */
+  --primary: oklch(0.55 0.2 256);
+  --primary-foreground: oklch(0.975 0 0);
+  
+  /* Secondary: Warm bronze from outer ring */
+  --secondary: oklch(0.5 0.15 50);
+  --secondary-foreground: oklch(0.975 0 0);
+  
+  /* Muted: Neutral grays */
+  --muted: oklch(0.35 0 0);
+  --muted-foreground: oklch(0.72 0 0);
+  
+  /* Accent: Steel/polished metal from inner gear */
+  --accent: oklch(0.68 0.02 60);
+  --accent-foreground: oklch(0.1 0 0);
+  
+  /* Destructive */
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.975 0 0);
+  
+  /* Borders and inputs */
+  --border: oklch(0.15 0.01 60);
+  --input: oklch(0.12 0.01 60);
+  --ring: oklch(0.55 0.2 256);
+  
+  /* Charts */
+  --chart-1: oklch(0.55 0.2 256);
+  --chart-2: oklch(0.5 0.15 50);
+  --chart-3: oklch(0.68 0.02 60);
+  --chart-4: oklch(0.58 0.12 40);
+  --chart-5: oklch(0.52 0.18 45);
+  
+  --radius: 0.625rem;
+  
+  /* Sidebar */
+  --sidebar: oklch(0.1 0.01 60);
+  --sidebar-foreground: oklch(0.975 0 0);
+  --sidebar-primary: oklch(0.55 0.2 256);
+  --sidebar-primary-foreground: oklch(0.975 0 0);
+  --sidebar-accent: oklch(0.5 0.15 50);
+  --sidebar-accent-foreground: oklch(0.975 0 0);
+  --sidebar-border: oklch(0.15 0.01 60);
+  --sidebar-ring: oklch(0.55 0.2 256);
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-slate-950 text-slate-100;
+  }
+}
+
+@layer components {
+  /* Glassmorphism based on emblem's polished steel + bronze aesthetic */
+  .glass {
+    @apply bg-slate-900/70 backdrop-blur-xl border border-slate-500/40 shadow-[0_18px_45px_rgba(0,0,0,0.6)];
+  }
+
+  .glass-subtle {
+    @apply bg-slate-900/60 backdrop-blur-md border border-slate-700/60;
+  }
+
+  /* Blue accent: Sophisticated illuminated circuit from emblem */
+  .gradient-tech {
+    @apply bg-gradient-to-br from-cyan-400 via-blue-500 to-slate-800;
+  }
+
+  /* Bronze accent: Warm brushed bronze from outer ring */
+  .gradient-heritage {
+    @apply bg-gradient-to-br from-amber-600 via-amber-700 to-stone-800;
+  }
+
+  /* Text gradients */
+  .gradient-tech-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-slate-200;
+  }
+
+  .gradient-heritage-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-amber-500 to-amber-300;
+  }
+
+  /* Color utilities matching emblem */
+  .accent-blue {
+    @apply text-blue-400;
+  }
+
+  .accent-bronze {
+    @apply text-amber-600;
+  }
+
+  .accent-steel {
+    @apply text-slate-300;
+  }
+
+  /* Emblem-inspired borders and dividers */
+  .border-emblem {
+    @apply border-slate-700;
+  }
+
+  .divider-emblem {
+    @apply bg-gradient-to-r from-transparent via-slate-600 to-transparent;
+  }
+
+  /* Emblem-inspired circular halo used behind key content */
+  .emblem-halo {
+    @apply relative;
+  }
+
+  .emblem-halo::before {
+    content: '';
+    position: absolute;
+    inset: -4rem;
+    border-radius: 9999px;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(56,189,248,0.18), transparent 60%),
+      conic-gradient(from 210deg, rgba(148,163,184,0.25), rgba(15,23,42,0.4), rgba(251,191,36,0.35), rgba(148,163,184,0.25));
+    opacity: 0.75;
+    filter: blur(18px);
+    z-index: -1;
+  }
+
+  /* Subtle etched metal texture overlay for full sections */
+  .bg-etched {
+    background-image:
+      radial-gradient(circle at top, rgba(148,163,184,0.15), transparent 55%),
+      linear-gradient(120deg, rgba(15,23,42,0.7), rgba(15,23,42,0.9)),
+      repeating-linear-gradient(
+        0deg,
+        rgba(15,23,42,0.85),
+        rgba(15,23,42,0.85) 1px,
+        rgba(15,23,42,0.88) 2px
+      );
+    background-blend-mode: soft-light, normal, multiply;
+  }
+
+  /* Pill badge echoing inner emblem rings */
+  .badge-ring {
+    @apply inline-flex items-center gap-2 rounded-full border border-slate-500/60 bg-slate-900/70 px-4 py-1 text-xs tracking-wide uppercase;
+    box-shadow:
+      0 0 0 1px rgba(15,23,42,0.9),
+      0 0 0 2px rgba(148,163,184,0.35);
+  }
+}
